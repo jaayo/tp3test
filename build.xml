@@ -1,3 +1,14 @@
+<!-- Define the SonarQube global properties (the most usual way is to pass these properties via the command line) -->
+<property name="sonar.host.url" value="http://localhost:9000/" />
+
+<!-- Define the Sonar properties -->
+<property name="sonar.projectKey" value="test3" />
+<property name="sonar.projectName" value="Example of SonarQube Scanner for Ant Usage" />
+<property name="sonar.projectVersion" value="1.0" />
+<property name="sonar.sources" value="src" />
+<property name="sonar.java.binaries" value="target" />
+<property name="sonar.sourceEncoding" value="UTF-8" />
+
 <project basedir="." default="compile">
 
 	<!-- This file contains all of the environment specific configuration, change it for your setup -->
@@ -332,3 +343,17 @@
 
 
 </project>
+
+<!-- ========= Define SonarQube Scanner for Ant Target ========= -->
+<target name="sonar" depends="compile">
+	<taskdef uri="antlib:org.sonar.ant" resource="org/sonar/ant/antlib.xml">
+		<!-- Update the following line, or put the "sonar-ant-task-*.jar" file in your "$HOME/.ant/lib" folder -->
+		<classpath path="C:\utils\apache-ant-1.10.1\lib\*.jar" />
+	</taskdef>
+	
+	<!-- Execute SonarQube Scanner for Ant Analysis -->
+	<sonar:sonar />
+</target>
+
+<!-- ========= The main target "all" ========= -->
+<target name="all" depends="clean,compile,sonar" />
